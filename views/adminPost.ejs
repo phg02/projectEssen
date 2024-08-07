@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PawPals</title>
+    <link rel="stylesheet" href="/stylesheet/adminPost.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script src="https://kit.fontawesome.com/797e28e901.js" crossorigin="anonymous"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&family=Kreon:wght@300..700&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap" rel="stylesheet">
+    <link rel="icon" type="image/svg" href="/images/logo.svg">
+</head>
+<%if (user.theme === 'light'){%>
+    <body>
+    <%} else{%>
+    <body data-theme="dark">
+    <%}%>
+    <div class="main">
+        <div class="wrapper">
+            <div class="escape">
+                <a href="/admin/users">
+                    <i class="fa-solid fa-arrow-left"></i>
+                    <div>back</div>
+                </a>
+            </div>
+
+            <div class="profile">
+                <div class="profile-info">
+                    <img src="<%=account.profilePic%>" alt="profile" class="profile-img">
+
+                    <div class="profile-detail">
+                        <div class="profile-name">
+                            <div><%=account.username%></div>
+                        </div>
+
+                        <div class="profile-follow">
+                            <div><%=allPosts.length%> posts</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="profile-select">
+                    <a href="" class="nav-link">
+                        <i class="fa-solid fa-file"></i>
+                        <p class="nav-text curr">Posts</p>
+                    </a>
+
+                    <a href="/admin/sellprofile/<%=account._id%>" class="nav-link">
+                        <i class="fa-solid fa-bag-shopping"></i>
+                        <p class="nav-text">Sell</p>
+                    </a>
+                </div>
+
+                <%if (allPosts.length != 0) {%>    
+                    <div class="profile-post">
+                        <%allPosts.forEach(post => {%>
+                            <div class="card">
+                                <div class="card-header">
+                                    <div class="header-name">
+                                        <div class="img-post">
+                                            <img src="<%=account.profilePic%>" alt="profile img">
+                                            <p><strong><%=account.username%></strong>   <%=post.dateCreated.getDate()%>/<%=1 +post.dateCreated.getMonth()%>/<%=post.dateCreated.getFullYear()%></p>
+                                        </div>
+                                    
+                                        <div class="dropdown">
+                                            <button>...</button>
+                                            <div class="report hidden" data-modal-target="#<%='p' + post.id%>">Delete post</div>
+                                        </div>
+                                    </div>
+        
+                                    <div class="title">
+                                        <div><%=post.title%></div>
+                                        <div class="post-title"><%=post.description%></div>
+                                    </div>
+                                    <button class="see-more-btn">See more</button>
+                                </div>
+        
+                                <%if (post.image !== null) {%>
+                                    <div class="card-body">
+                                        <img src="<%=post.image%>" alt="dog">
+                                    </div>
+                                <%}%>
+        
+                                <div class="card-footer">
+                                    <div class="sub-footer">
+                                        <%if(post.image !== null){%>
+                                            <a href="/admin/imgpost/<%= post.id%>/userprofile">
+                                            <div type="button" class="commentBtn" aria-label="Comment on post">
+                                                View full post
+                                            </div></a>
+                                        <%}else{%>
+                                            <a href="/admin/post/<%= post.id%>/userprofile">
+                                            <div type="button" class="commentBtn" aria-label="Comment on post">
+                                                View full post
+                                            </div></a>
+                                        <%}%>
+                                    </div>
+                                </div>
+                            </div>
+                        <%})%>
+                    </div>
+                <%} else {%>
+                    <div class="noContent">
+                        <p>No posts found.</p>
+                    </div>
+                <%}%>    
+            </div>
+        </div>
+
+        <nav class="navbar" aria-label="Main Navigation">
+            <ul class="nav-list">
+                <li class="nav-item now">
+                    <a href="/admin/users" class="nav-link" aria-label="Users List">
+                        <i class="fa-solid fa-people-group"></i>
+                        <p class="nav-text">Users List</p>
+                    </a>
+                </li>
+
+                <li class="nav-item">
+                    <a href="/admin/post" class="nav-link" aria-label="Manage Posts">
+                        <i class="fa-solid fa-file"></i>
+                        <p class="nav-text">Manage Posts</p>
+                    </a>
+                </li>
+
+                <li class="nav-item">
+                    <a href="/admin/adoption" class="nav-link" aria-label="Manage Posts">
+                        <i class="fa-solid fa-cart-shopping"></i>
+                        <p class="nav-text">Manage Adoption</p>
+                    </a>
+                </li>
+
+                <li class="nav-item">
+                    <a href="/admin/setting" class="nav-link" aria-label="Setting">
+                        <i class="fa-solid fa-gear"></i>
+                        <p class="nav-text">Setting</p>
+                    </a>
+                </li>
+            </ul>
+        </nav>
+    </div>
+<%allPosts.forEach( post =>{%>
+    <div class="modal haha" id="<%= 'p'+ post.id%>">
+        <div class="modal-header2">
+            <button data-close-button class="close-button">&times;</button>
+        </div>
+     
+        <div class="modal-body2">
+            <p>Are you sure you want to delete this post?</p>
+            <div>
+            <form action="/admin/deletepostprofile/<%= post.id%>?_method=PUT" method="POST">
+                <button class="delete" aria-label="Confirm delete" type="submit">Delete</button>
+            </form>
+                <button class="cancelBtn">Cancel</button>
+            </div>
+        </div>
+    </div>
+<%})%>
+    <div id="overlay"></div>
+    <script src="/javascript/adminPost.js"></script>
+</body>
+</html>

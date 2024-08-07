@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PawPals</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Kreon:wght@300..700&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&family=Kreon:wght@300..700&display=swap"
+        rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <script defer src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+        crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="stylesheet/about-us.css">
+    <link rel="icon" type="image/svg" href="/images/logo.svg">
+</head>
+<body>
+    <nav class="navbar fixed-top navbar-light bg-body-tertiary navbar-expand-lg nav-width-check">
+        <div class="container">
+            <a class="navbar-brand d-flex align-items-center" href="/">
+                <img src="images/logo.svg" height="40px" width="40px">
+                <h4 class="text-center ms-1 mt-2">PawPals</h4>
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
+                aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse justify-content-end" id="navbarSupportedContent">
+                <ul class="navbar-nav">
+                    <li class="nav-items">
+                        <!-- fill in this -->
+                        <a href="/about" class="nav-link">About us</a>
+                    </li>
+                    <li class="nav-items">
+                        <!-- fill in this -->
+                        <a href="/signup" class="nav-link">Sign up</a>
+                    </li>
+                    <li class="nav-items">
+                        <!-- fill in this -->
+                        <a href="/signin" class="nav-link">Login</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <section id="mission">
+        <div class="container">
+            <h1>What is PawPals?</h1>
+            <br>
+            <p>PawPals is a comprehensive platform designed for and dedicated to pet enthusiasts.</p>
+            <br>
+            <p>We provide a space for people to share moments of pets, seek medical advice for them or even find one for adoption.</p>
+            <br>
+            <p>Our utmost priority is to guarantee the quality of our users' experiences on this platform; and our ambition is to maintain the development of the pet-loving community we created.</p>
+            <br>
+            <p>Thank you,</p>
+            <p>The PawPals Team</p>
+        </div>
+    </section>
+    <section id="details">
+        <div class="container">
+            <h1>Our Team</h1>
+        </div>
+        <div class="row pfp-set">
+            <div class="col-sm-12 col-md-6 col-xl-3 pfp-card" id="Phuong" data-bs-toggle="modal" data-bs-target="#phuongModal">
+                <div class="pfp">
+                    <img src="images/phuong.jpg" alt="Phuong">
+                    <p>Nguyen Minh Phuong</p>
+                </div>
+            </div>
+            <div class="col-sm-12 col-md-6 col-xl-3 pfp-card" id="Muck" data-bs-toggle="modal" data-bs-target="#muckModal">
+                <div class="pfp">
+                    <img src="images/muck.png" alt="Muck">
+                    <p>Dao Thao Phuong</p>
+                </div>
+            </div>
+            <div class="col-sm-12 col-md-6 col-xl-3 pfp-card" id="Nghia" data-bs-toggle="modal" data-bs-target="#nghiaModal">
+                <div class="pfp">
+                    <img src="images/nghia.jpg" alt="Nghia">
+                    <p>Pham Trung Nghia</p>
+                </div>
+            </div>
+            <div class="col-sm-12 col-md-6 col-xl-3 pfp-card" id="GK" data-bs-toggle="modal" data-bs-target="#gkModal">
+                <div class="pfp">
+                    <img src="images/gk.jpg" alt="GK">
+                    <p>Nguyen Hoang Gia Khanh</p>
+                </div>
+            </div>
+        </div>
+        <div class="modal fade" id="phuongModal" aria-labelledby="infoModal">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <img src="images/phuong.jpg" alt="Phuong">
+                        <p class="modal-title fs-4">Nguyen Minh Phuong</p>
+                    </div>
+                    <div class="modal-body">
+                        <div>
+                            <img src="images/dob.png" alt="dob">
+                            <p>02/11/2004</p>
+                        </div>
+                        <div>
+                            <img src="images/location.png" alt="location">
+                            <p>RMIT University Vietnam - Hanoi Campus</p>
+                        </div>
+                        <div>
+                            <img src="images/number.png" alt="number">
+                            <p>s4063236</p>
+                        </div>
+                        <div>
+                            <img src="images/email.png" alt="email">
+                            <p>s4063236@rmit.edu.vn</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="modal fade" id="muckModal" aria-labelledby="infoModal">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <img src="images/muck.png" alt="Muck">
+                        <p class="modal-title fs-4">Dao Thao Phuong</p>
+                    </div>
+                    <div class="modal-body">
+                        <div>
+                            <img src="images/dob.png" alt="dob">
+                            <p>18/09/2006</p>
+                        </div>
+                        <div>
+                            <img src="images/location.png" alt="location">
+                            <p>RMIT University Vietnam - Hanoi Campus</p>
+                        </div>
+                        <div>
+                            <img src="images/number.png" alt="number">
+                            <p>s4029319</p>
+                        </div>
+                        <div>
+                            <img src="images/email.png" alt="email">
+                            <p>s4029319@rmit.edu.vn</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="modal fade" id="nghiaModal" aria-labelledby="infoModal">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <img src="images/nghia.jpg" alt="Nghia">
+                        <p class="modal-title fs-4">Pham Trung Nghia</p>
+                    </div>
+                    <div class="modal-body">
+                        <div>
+                            <img src="images/dob.png" alt="dob">
+                            <p>28/05/2005</p>
+                        </div>
+                        <div>
+                            <img src="images/location.png" alt="location">
+                            <p>RMIT University Vietnam - Hanoi Campus</p>
+                        </div>
+                        <div>
+                            <img src="images/number.png" alt="number">
+                            <p>s4028630</p>
+                        </div>
+                        <div>
+                            <img src="images/email.png" alt="email">
+                            <p>s4028630@rmit.edu.vn</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="modal fade" id="gkModal" aria-labelledby="infoModal">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <img src="images/gk.jpg" alt="GK">
+                        <p class="modal-title fs-4">Nguyen Hoang Gia Khanh</p>
+                    </div>
+                    <div class="modal-body">
+                        <div>
+                            <img src="images/dob.png" alt="dob">
+                            <p>28/05/2005</p>
+                        </div>
+                        <div>
+                            <img src="images/location.png" alt="location">
+                            <p>RMIT University Vietnam - Hanoi Campus</p>
+                        </div>
+                        <div>
+                            <img src="images/number.png" alt="number">
+                            <p>s4035894</p>
+                        </div>
+                        <div>
+                            <img src="images/email.png" alt="email">
+                            <p>s4035894@rmit.edu.vn</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</body>
+</html>

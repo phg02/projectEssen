@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<!-- DONE -->
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="This page allow the user to view their posts through the profile">
+    <title>PawPals</title>
+    <link rel="stylesheet" href="/stylesheet/profile-post.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script src="https://kit.fontawesome.com/797e28e901.js" crossorigin="anonymous"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&family=Kreon:wght@300..700&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap" rel="stylesheet">
+    <link rel="icon" type="image/svg" href="/images/logo.svg">
+</head>
+<%if (user.theme === 'light'){%>
+    <body>
+    <%} else{%>
+    <body data-theme="dark">
+    <%}%>
+
+    <div class="main">
+        <div class="wrapper">
+            <div class="profile">
+                <div class="profile-info">
+                    <img src="<%= user.profilePic%>" alt="profile" class="profile-img">
+    
+                    <div class="profile-detail">
+                        <div class="profile-name">
+                            <div id="profile-name" aria-labelledby="profile-name"><%=user.username%></div>
+                            <a href="/setting" aria-label="Settings">
+                                <i class="fa-solid fa-gear"></i>
+                            </a>
+                        </div>
+    
+                        <div class="profile-follow">
+                            <div><%= allPosts.length%> posts</div>
+                        </div>
+                    </div>
+                </div>
+    
+                <div class="profile-select">
+                    <a href="/user/postprofile" class="nav-link curr" aria-label="User posts">
+                        <i class="fa-solid fa-file"></i>
+                        <p class="nav-text">Posts</p>
+                    </a>
+    
+                    <a href="/user/sellerprofile" class="nav-link" aria-label="User sales">
+                        <i class="fa-solid fa-bag-shopping"></i>
+                        <p class="nav-text">Sell</p>
+                    </a>
+                </div>
+
+                <%if (allPosts.length != 0){%>
+                    <div class="profile-post">
+
+                        <!-- //card img -->
+                        <%allPosts.forEach(post =>{%>
+                            <div class="card">
+                                <div class="card-header">
+                                    <div class="header-name">
+                                        <div class="img-post">
+                                            <img src="<%= post.author.profilePic%>" alt="Profile picture">
+                                            <p aria-label="User information"><strong><%=post.author.username %></strong>   <%= post.dateCreated.getDate()%>/<%= 1 + post.dateCreated.getMonth()%>/<%= post.dateCreated.getFullYear()%></p>
+                                        </div>
+                                            
+                                        <div class="dropdown">
+                                            <button aria-label="More options">...</button>
+                                            <div class="report hidden" data-modal-target="#<%='p'+ post.id%>" aria-label="Delete post option">Delete post</div>
+                                        </div>
+                                    </div>
+                            
+                                    <div class="title">
+                                        <div aria-label="Post title"><%= post.title%></div>
+                                        <div class="post-title" aria-label="Post content"><%= post.description%></div>
+                                    </div>
+                                    <button class="see-more-btn" aria-label="See more button">See more</button>
+                                </div>
+                            
+                                <%if(post.image !== null){%>
+                                    <div class="card-body">
+                                        <img src="<%= post.image%>" alt="Post image">
+                                    </div>
+                                <%}%>
+                
+                                <div class="card-footer">
+                                    <%if(post.image !== null){%>
+                                        <a href="/community/imgpost/<%= post.id%>/profile"><div type="button" class="commentBtn" aria-label="Comment on post">
+                                            View full post
+                                        </div></a>
+                                    <%}else{%>
+                                        <a href="/community/post/<%= post.id%>/profile"><div type="button" class="commentBtn" aria-label="Comment on post">
+                                            View full post
+                                        </div></a>
+                                    <%}%>
+                                </div>
+                            </div>
+                        <%})%> 
+                    </div>
+                <%} else {%>
+                    <div class="noContent">
+                        <p>No posts found.</p>
+                    </div>
+                <%}%>
+            </div>
+        </div>
+
+        <nav class="navbar">
+            <ul class="nav-list">
+                <li class="nav-item">
+                    <a href="/community" class="nav-link" aria-label="Community">
+                        <i class="fa-solid fa-people-group"></i>
+                        <p class="nav-text">Community</p>
+                    </a>
+                </li>
+        
+                <li class="nav-item">
+                    <a href="/adoption" class="nav-link" aria-label="Adoption">
+                        <i class="fa-solid fa-cart-shopping"></i>
+                        <p class="nav-text">Adoption</p>
+                    </a>
+                </li>
+        
+                <li class="nav-item">
+                    <a href="/community/createpost" class="nav-link" aria-label="Create post">
+                        <i class="fa-solid fa-square-plus"></i>
+                        <p class="nav-text">Create post</p>
+                    </a>
+                </li>
+        
+                <li class="nav-item now">
+                    <a href="/user/postprofile" class="nav-link" aria-label="Profile">
+                        <i class="fa-solid fa-user"></i>
+                        <p class="nav-text">Profile</p>
+                    </a>
+                </li>
+        
+                <li class="nav-item">
+                    <a href="/setting" class="nav-link" aria-label="Setting">
+                        <i class="fa-solid fa-gear"></i>
+                        <p class="nav-text">Setting</p>
+                    </a>
+                </li>
+            </ul>
+        </nav>
+    </div>
+    <!-- copy css -->
+    <%allPosts.forEach(post =>{ %>
+    <div class="modal haha" id="<%='p'+ post.id%>" role="dialog" aria-labelledby="dialog3Title" aria-describedby="dialog3Desc">
+        <div class="modal-header2">
+            <button data-close-button class="close-button" aria-label="Close">&times;</button>
+        </div>
+    
+        <div class="modal-body2">
+            <p id="dialog3Title">Are you sure you want to delete this post?</p>
+            <div id="dialog3Desc">
+                <form action="/user/deletepost/<%= post.id%>?_method=PUT" method="POST">
+                    <button class="reportBtn" aria-label="Confirm delete" type="submit">Delete</button>
+                </form>
+                <button class="cancelBtn" aria-label="Cancel delete">Cancel</button>
+            </div>
+        </div>
+    </div>
+    
+    <%})%>
+    <div id="overlay"></div>
+    
+    <script src="/javascript/community.js"></script>
+</body>
+</html>

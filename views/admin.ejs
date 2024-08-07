@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="en">
+<!-- DONE -->
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="This page allow the admin to manage posts">
+    <title>PawPals</title>
+    <link rel="stylesheet" href="/stylesheet/admin.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&family=Kreon:wght@300..700&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap" rel="stylesheet">
+    <script src="https://kit.fontawesome.com/797e28e901.js" crossorigin="anonymous"></script>
+    <link rel="icon" type="image/svg" href="/images/logo.svg">
+</head>
+<%if (user.theme === 'light'){%>
+    <body>
+    <%} else{%>
+    <body data-theme="dark">
+    <%}%>
+    <div class="main">
+        <nav class="navbar" aria-label="Main navigation">
+            <ul class="nav-list">
+                <li class="nav-item">
+                    <a href="/admin/users" class="nav-link" aria-label="Users List">
+                        <i class="fa-solid fa-people-group"></i>
+                        <p class="nav-text">Users List</p>
+                    </a>
+                </li>
+    
+                <li class="nav-item now">
+                    <a href="/admin/post" class="nav-link" aria-label="Manage Posts">
+                        <i class="fa-solid fa-file"></i>
+                        <p class="nav-text">Manage Posts</p>
+                    </a>
+                </li>
+
+                <li class="nav-item">
+                    <a href="/admin/adoption" class="nav-link" aria-label="Manage Posts">
+                        <i class="fa-solid fa-cart-shopping"></i>
+                        <p class="nav-text">Manage Adoption</p>
+                    </a>
+                </li>
+    
+                <li class="nav-item">
+                    <a href="/admin/setting" class="nav-link" aria-label="Setting">
+                        <i class="fa-solid fa-gear"></i>
+                        <p class="nav-text">Setting</p>
+                    </a>
+                </li>
+            </ul>
+        </nav>
+    
+        <div class="wrapper">
+            <form aria-label="Search and filter form" id="postForm" action="/admin/post" method="GET">
+                <div class="search-bar">
+                    <div class="hoho">
+                        <div class="manage">Manage Posts</div>
+    
+                        <div class="top">
+                            <div class="search">
+                                <input type="text" placeholder="Search post title..." aria-label="Search post title" name="search" value="<%=search.search%>">
+                                <button aria-label="Search"><i class="fa-solid fa-magnifying-glass"></i></button>
+                            </div>
+                            <div class="sortby">
+                                <select name="sortbyTime" id="sortby" aria-label="Sort posts by" onchange="autoSubmit()">
+                                    <option disabled selected>Sort by</option> 
+                                    <%if (search.sortbyTime == 'Newest posts'){%>
+                                        <option value="Newest posts" selected>Newest posts</option>
+                                    <%} else {%>
+                                        <option value="Newest posts">Newest posts</option>
+                                    <%}%>
+                                    <%if (search.sortbyTime == 'Oldest posts'){%>
+                                        <option value="Oldest posts" selected>Oldest posts</option>
+                                    <%} else {%>
+                                        <option value="Oldest posts">Oldest posts</option>
+                                    <%}%>
+                                </select>
+                            </div>
+                        </div>
+    
+                        <div class="middle">
+                            <div class="sortby sortpost">
+                                <select name="sortbyStatus" id="sortby" aria-label="Filter posts by" onchange="autoSubmit()">
+                                    <option disabled selected>Posts</option> 
+                                    <%if (search.sortbyStatus == 'All posts'){%>
+                                        <option value="All posts" selected>All posts</option>
+                                    <%} else {%>
+                                        <option value="All posts">All posts</option>
+                                    <%}%>
+                                    <%if (search.sortbyStatus == 'Reported posts'){%>
+                                        <option value="Reported posts" selected>Reported posts</option>
+                                    <%} else {%>
+                                        <option value="Reported posts">Reported posts</option>
+                                    <%}%>
+                                    <%if (search.sortbyStatus == 'Deleted posts'){%>
+                                        <option value="Deleted posts" selected>Deleted posts</option>
+                                    <%} else {%>
+                                        <option value="Deleted posts">Deleted posts</option>
+                                    <%}%>
+                                </select>
+                            </div>
+                        </div>   
+                    </div>
+                            
+                    <div class="bottom">
+                        <p>Filter:</p>
+                        <div class="start-date">
+                            <input type="date" name="startDate" placeholder="Start date" aria-label="Start date filter" value="<%=search.startDate%>" onchange="autoSubmit()">
+                        </div>
+                        <div class="end-date">
+                            <input type="date" name="endDate" placeholder="End date" aria-label="End date filter" value="<%=search.endDate%>" onchange="autoSubmit()">
+                        </div>
+                    </div>  
+                </div>
+            </form>
+<!-- SECOND -->
+            <%if (allPosts.length != 0) {%>    
+                <div class="cards">
+                    <%allPosts.forEach (post => {%>
+                        <div class="card">
+                            <div class="card-header">
+                                <div class="header-name">
+                                    <img src="<%=post.author.profilePic%>" alt="profile image">
+                                    <p><strong><%=post.author.username%></strong>   <%=post.dateCreated.getDate()%>/<%=(post.dateCreated.getMonth() + 1)%>/<%=post.dateCreated.getFullYear()%> <%if(post.deleted == true){%>(Post deleted)<%}%></p>
+                                </div>
+
+                                <div class="title">
+                                    <div><%=post.title%></div>
+                                    <div class="post-title"><%=post.description%></div>
+                                </div>
+                                <button class="see-more-btn" aria-label="See more">See more</button>
+                            </div>
+
+                            <%if (post.image !== null) {%>
+                                <div class="card-body">
+                                    <img src="<%=post.image%>" alt="post img">
+                                </div>
+                            <%}%>
+
+                            <div class="card-footer">
+                                <div class="sub-footer">
+                                    <%if(post.image !== null){%>
+                                        <a href="/admin/imgpost/<%= post.id%>/admin">
+                                        <div type="button" class="commentBtn" aria-label="Comment on post">
+                                            View full post
+                                        </div></a>
+                                    <%}else{%>
+                                        <a href="/admin/post/<%= post.id%>/admin">
+                                        <div type="button" class="commentBtn" aria-label="Comment on post">
+                                            View full post
+                                        </div></a>
+                                    <%}%>
+                                </div>
+                            
+                                <div data-modal-target="#<%= 'p'+post.id%>" class="delete-btn" aria-label="Delete">Delete</div>
+                            </div>
+                        </div>
+                    <%})%>
+                </div>
+                <div class="pag">
+                    <%if(page >= 1){%>
+                        <a href="/admin/post?page=<%= Number(page)-1%><%= searchLink%>">Previous</a>
+                    <%}%>
+                    <a href="/admin/post?page=<%= Number(page)+1%><%= searchLink%>">Next page</a>
+                </div>
+            <%} else {%>
+                <div class="noContent">
+                    <p>No posts found. <a href="/admin/post">Go back</a></p>
+                </div>
+            <%}%> 
+        </div>
+    </div>
+<!-- THIRD -->
+<div class="modal" id="modal" aria-label="User post modal">
+    <div class="modal-header">
+        <div class="information">
+            <div class="infor">
+                <img src="/images/dogcol1.jpg" alt="dog">
+                <p>Username . dd/mm/yyyy</p>
+            </div>
+
+            <button data-close-button class="close-button" aria-label="Close modal">&times;</button>
+        </div>
+    </div>
+
+    <div class="modal-body">
+        <div class="text">
+            <div>Lorem ipsum</div>
+            <div class="caption">Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptas doloribus error eligendi
+                esse distinctio placeat blanditiis? Nesciunt, eaque, cupiditate tempore vero sed doloribus quae
+                numquam asperiores saepe, pariatur illum.</div>
+        </div>
+        <img src="/images/catcol1.jpg" alt="dog">
+    </div>
+
+    <div class="modal-footer">
+        <div class="cmt-section">
+            <img src="/images/dogcol1.jpg" alt="dog">
+
+            <div class="content">
+                <div class="info">
+                    <div class="username">Username</div>
+                    <form>
+                        <div class="trash"><i class="fa-solid fa-trash" aria-hidden="true"></i></div>
+                    </form>
+                </div>
+                <div>Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptas doloribus error eligendi
+                    explicabo esse distinctio placeat blanditiis? Nesciunt, eaque, cupiditate tempore vero sed
+                    doloribus quae numquam asperiores saepe, pariatur illum.</div>
+            </div>
+        </div>
+
+
+        <div class="modal-cmt">
+            <img src="/images/dogcol1.jpg" alt="dog">
+            <form>
+                <input type="text" class="comment-input" placeholder="Write a comment..." aria-label="Write a comment">
+                <button id="comment-btn" aria-label="Submit comment">Comment</button>
+            </form>
+        </div>
+    </div>
+</div>
+
+<div class="modal" id="modal1" aria-label="User post modal">
+    <div class="modal-header">
+        <div class="information">
+            <div class="infor">
+                <img src="/images/dogcol1.jpg" alt="dog">
+                <p>Username . dd/mm/yyyy</p>
+            </div>
+
+            <button data-close-button class="close-button" aria-label="Close modal">&times;</button>
+        </div>
+    </div>
+
+    <div class="modal-body">
+        <div class="text">
+            <div>Lorem ipsum</div>
+            <div class="caption">Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptas doloribus error eligendi explicabo
+                esse distinctio placeat blanditiis? Nesciunt, eaque, cupiditate tempore vero sed doloribus quae
+                numquam asperiores saepe, pariatur illum.</div>
+        </div>
+    </div>
+
+    <div class="modal-footer">
+        <div class="cmt-section">
+            <img src="/images/dogcol1.jpg" alt="dog">
+
+            <div class="content">
+                <div class="info">
+                    <div class="username">Username</div>
+                    <form>
+                        <div class="trash"><i class="fa-solid fa-trash" aria-hidden="true"></i></div>
+                    </form>
+                </div>
+                <div>Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptas doloribus error eligendi
+                    explicabo esse distinctio placeat blanditiis? Nesciunt, eaque, cupiditate tempore vero sed
+                    doloribus quae numquam asperiores saepe, pariatur illum.</div>
+            </div>
+        </div>
+
+
+        <div class="modal-cmt">
+            <img src="/images/dogcol1.jpg" alt="dog">
+            <form>
+                <input type="text" class="comment-input" placeholder="Write a comment..." aria-label="Write a comment">
+                <button id="comment-btn" aria-label="Submit comment">Comment</button>
+            </form>
+        </div>
+    </div>
+</div>
+<%allPosts.forEach(post=> {%>
+<div class="modal deleteModal" id="<%= 'p'+post.id%>" aria-label="Delete post confirmation modal">
+    <div class="modal-header2">
+        <button data-close-button class="close-button" aria-label="Close modal">&times;</button>
+    </div>
+
+    <div class="modal-body2">
+        <div>
+            <div>Are you sure you want to delete this user post?</div>
+            <div>WARNING: This action is irreversible!!!</div>
+        </div>
+        <div>
+            <form action="/admin/deletepost/<%= post.id%>?_method=PUT" method="POST">
+                <button class="delete" aria-label="Confirm delete" type="submit">Delete</button>
+            </form>
+            <button class="cancelBtn" aria-label="Cancel delete post">Cancel</button>
+        </div>
+    </div>
+</div>
+<%})%>
+
+    <div id="overlay"></div>
+
+    <script src="/javascript/admin.js"></script>
+    <script src="/javascript/adminPostAutoSubmit.js" defer></script>
+</body>
+</html>

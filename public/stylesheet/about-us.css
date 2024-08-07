@@ -1,0 +1,138 @@
+@import "shared/fonts.css";
+@import "shared/variables.css";
+
+html {
+  scroll-behavior: smooth;
+}
+
+.navbar-light {
+  background-color: var(--primary-bg-color) !important;
+}
+.nav-width-check{
+  width: 100%;
+}
+nav h4 {
+  color: #7f4b23 !important;
+}
+nav {
+  display: block;
+  position: fixed;
+  font-family: 'Kreon', serif;
+  width: 100%;
+  overflow: hidden;
+}
+
+p {
+  font-family: 'Inter', sans-serif;
+}
+
+.navbar-toggler {
+  transform: translateX(-0.625rem);
+}
+
+#mission p {
+  font-weight: 500;
+  font-size: 1rem;
+}
+
+h1 {
+  font-size: 4rem;
+}
+
+#mission {
+  background-color: var(--secondary-bg-color);
+  padding-top: 6rem;
+  padding-bottom: 1rem;
+  width: 100% !important;
+}
+
+#details {
+  background-color: #A0AEAA;
+  padding-top: 1.5rem;
+  padding-bottom: 1rem;
+  width: 100% !important;
+}
+
+#details h1 {
+  padding-bottom: 0.625rem;
+}
+
+.pfp-set {
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.pfp-card {
+  display: flex;
+  justify-content: center;
+  border-radius: 10%;
+  width: 18.75rem;
+  height: 22rem;
+}
+
+.pfp, .modal-header {
+  display: flex;
+  flex-direction: column;
+  align-content: center;
+  justify-content: flex-start;
+  height: 100%;
+  width: 100%;
+}
+
+.pfp img {
+  max-height: 12.5rem;
+  border-radius: 50%;
+  margin-top: 2rem;
+  align-self: center;
+}
+
+.pfp p {
+  font-weight: 700;
+  font-size: 1.5rem;
+  text-align: center;
+  padding-top: 1.25rem;
+}
+
+#muck p, #nghia p {
+  transform: translateY(0.5em);
+}
+
+.pfp-card:hover {
+  background-color: #888888;
+}
+
+.modal-header img {
+  max-height: 12.5rem;
+  border-radius: 50%;
+  align-self: center;
+  padding: 0.625rem;
+}
+
+.modal-header p {
+  font-weight: 700;
+  font-size: 1.5rem;
+  text-align: center;
+  padding-top: 0.625rem;
+}
+
+.modal-body div {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+.modal-body img {
+  padding: 0.32rem;
+  max-width: 1.8rem;
+  float: left;
+}
+
+.modal-body p {
+  font-size: 1rem !important;
+  font-weight: 500;
+  margin-bottom: 0;
+  margin-left: 0.32rem;
+  padding: 0.5rem 0;
+}

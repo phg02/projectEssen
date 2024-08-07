@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<!-- DONE -->
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="This page allow admins to change the account and web's settings">
+    <title>PawPals</title>
+    <link rel="stylesheet" href="/stylesheet/settingAdmin.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script src="https://kit.fontawesome.com/797e28e901.js" crossorigin="anonymous"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&family=Kreon:wght@300..700&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap" rel="stylesheet">
+    <link rel="icon" type="image/svg" href="/images/logo.svg">
+</head>
+<%if (user.theme === 'light'){%>
+    <body>
+    <%} else{%>
+    <body data-theme="dark">
+    <%}%>
+
+    <div class="main">
+
+        <div class="wrapper">
+            <div class="photo">
+                <div class="info">
+                    <img src="<%= user.profilePic%>" alt="profile">
+                    <p><strong><%= user.username%></strong></p>
+                </div>
+
+                <button data-modal-target="#photoModal" class="settingBtn" aria-label="Change profile photo">Change photo</button>
+            </div>
+
+            <div class="theme box">
+                <p id="themeChangeDescription">Change theme(dark/light)</p>
+                <form action="/admin/updatetheme?_method=PUT" method="POST" onclick="clickFn(event)" id="themeForm" aria-labelledby="themeChangeDescription">
+                    <label class="switch">
+                        <% if(user.theme=='light' ){%>
+                            <input type="checkbox" id="switchTheme" name="switchTheme" aria-label="Change to Dark Theme">
+                            <%}else{%>
+                                <input type="checkbox" id="switchTheme" name="switchTheme" checked aria-label="Change to Light Theme">
+                                <%}%>
+                                    <span class="slider"></span>
+                    </label>
+                </form>
+            </div>
+
+            <div class="password box">
+                <p id="passwordChangeDescription">Change Password</p>
+                <button data-modal-target="#passwordModal" class="settingBtn" aria-labelledby="passwordChangeDescription">Change password</button>
+            </div>
+            
+            <a href="/logout" class="logoutBtn" aria-label="Logout">Logout</a>
+        </div>
+        
+        <nav class="navbar">
+            <ul class="nav-list">
+                <li class="nav-item">
+                    <a href="/admin/users" class="nav-link" aria-label="Users List">
+                        <i class="fa-solid fa-people-group"></i>
+                        <p class="nav-text">Users List</p>
+                    </a>
+                </li>
+
+                <li class="nav-item">
+                    <a href="/admin/post" class="nav-link" aria-label="Manage Posts">
+                        <i class="fa-solid fa-file"></i>
+                        <p class="nav-text">Manage Posts</p>
+                    </a>
+                </li>
+
+                <li class="nav-item">
+                    <a href="/admin/adoption" class="nav-link" aria-label="Manage Posts">
+                        <i class="fa-solid fa-cart-shopping"></i>
+                        <p class="nav-text">Manage Adoption</p>
+                    </a>
+                </li>
+
+                <li class="nav-item now">
+                    <a href="/admin/setting" class="nav-link" aria-label="Setting">
+                        <i class="fa-solid fa-gear"></i>
+                        <p class="nav-text">Setting</p>
+                    </a>
+                </li>
+            </ul>
+        </nav>
+    </div>
+
+    <div class="modal" id="photoModal">
+        <div class="modal-header">
+            <div class="title">Change photo</div>
+            <button data-close-button class="close-button" aria-label="Close change photo modal">&times;</button>
+        </div>
+    
+        <div class="modal-body">
+            <form action="/setting/updateprofile" method="POST" enctype="multipart/form-data">
+                <div class="drop-zone">
+                    <span class="drop-zone__prompt">Drop file here or click to upload</span>
+                    <input type="file" name="myFile" class="drop-zone__input" aria-label="File upload input">
+                </div>
+
+                <button type="submit" aria-label="Save new photo">Save</button>
+            </form>
+        </div>
+    </div>
+
+    <div class="modal" id="passwordModal">
+        <div class="modal-header">
+            <div class="title">Change password</div>
+            <button data-close-button class="close-button" aria-label="Close change password modal">&times;</button>
+        </div>
+    
+        <div class="modal-body">
+           <form id="passwordChange" action="/admin/updatepassword?_method=PUT" method="POST" novalidate>
+                <div class="password-container">
+                    <label for="oldPassword">Enter old Password</label>
+                    <div class="form__input">
+                        <input type="password" id="oldPassword" name="oldPassword" placeholder="Old password" required aria-label="Old password input">
+                        <span><i class="fa-regular fa-eye-slash"></i></span>
+                    </div>
+                    <div class="error" id="oldPasswordError"></div>
+                </div>
+
+                <div class="password-container">
+                    <label for="newPassword">Enter new Password</label>
+                    <div class="form__input">
+                        <input type="password" id="newPassword" name="newPassword" placeholder="New password" required aria-label="New password input">
+                        <span><i class="fa-regular fa-eye-slash"></i></span>
+                    </div>
+                    <div class="error" id="newPasswordError"></div>
+                </div>
+
+                <div class="password-container">
+                    <label for="confirmPassword">Enter confirm Password</label>
+                    <div class="form__input">
+                        <input type="password" id="confirmPassword" name="confirmPassword" placeholder="Confirm password" required aria-label="Confirm password input">
+                        <span><i class="fa-regular fa-eye-slash"></i></span>
+                    </div>
+                    <div class="error" id="confirmPasswordError"></div>
+                </div>
+
+                <button type="submit" aria-label="Change password">Change password</button>
+           </form>
+        </div>
+    </div>
+
+    <div id="overlay"></div>
+    
+
+    <script src="/javascript/settingAdmin.js"></script>
+</body>
+</html>

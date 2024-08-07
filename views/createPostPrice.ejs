@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<!-- DONE -->
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="This is a page for creating a new post to sell pets in our community. You can add images, specify the type of pet, add a price and write a description for your post.">
+    <title>PawPals</title>
+    <link rel="stylesheet" href="/stylesheet/createPostPrice.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Kreon:wght@300..700&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&family=Kreon:wght@300..700&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script src="https://kit.fontawesome.com/797e28e901.js" crossorigin="anonymous"></script>
+    <script defer src="/javascript/fileUploadPrice.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script defer src="/javascript/createPostPrice.js"></script>
+    <link rel="icon" type="image/svg" href="/images/logo.svg">
+</head>
+
+<%if (user.theme === 'light'){%>
+    <body>
+    <%} else{%>
+    <body data-theme="dark">
+    <%}%>
+    <div class="main">
+        <nav class="navbar" aria-label="Main Navigation">
+            <ul class="nav-list">
+                <li class="nav-item">
+                    <a href="/community" class="nav-link" aria-label="Community">
+                        <i class="fa-solid fa-people-group"></i>
+                        <p class="nav-text">Community</p>
+                    </a>
+                </li>
+
+                <li class="nav-item">
+                    <a href="/adoption" class="nav-link" aria-label="Adoption">
+                        <i class="fa-solid fa-cart-shopping"></i>
+                        <p class="nav-text">Adoption</p>
+                    </a>
+                </li>
+
+                <li class="nav-item now">
+                    <a href="/adoption/createlisting" class="nav-link" aria-label="Create post">
+                        <i class="fa-solid fa-square-plus"></i>
+                        <p class="nav-text">Sell pet</p>
+                    </a>
+                </li>
+
+                <li class="nav-item">
+                    <a href="/user/postprofile" class="nav-link" aria-label="Profile">
+                        <i class="fa-solid fa-user"></i>
+                        <p class="nav-text">Profile</p>
+                    </a>
+                </li>
+
+                <li class="nav-item">
+                    <a href="/setting" class="nav-link" aria-label="Setting">
+                        <i class="fa-solid fa-gear"></i>
+                        <p class="nav-text">Setting</p>
+                    </a>
+                </li>
+            </ul>
+        </nav>
+
+        <div class="wrapper">
+            <div class="align-content">
+                <div class="title-container" aria-label="Create Post Title">
+                    <h1>Create post</h1>
+                </div>
+                <form class="layout-grid" aria-label="Create Post Form" action="/adoption/createlisting" method="POST" enctype="multipart/form-data">
+                    <div class="left">
+                        <div class="drop-zone">
+                            <span class="drop-zone__prompt">Add image to post</span>
+                            <input type="file" name="myFile" class="drop-zone__input" aria-label="File Upload">
+                        </div>
+                    </div>
+                    <div class="small-screen">
+                        <button type="submit" class="custom-btn">Post</button>
+                    </div>
+                    <div class="right">
+                        <div class="input-post">
+                            <label for="title" class="custom-label post-label">Title</label>
+                            <br>
+                            <input type="text" name="title" id="title" class="create-post-input" placeholder="Title" aria-label="Title Input">
+                            <br>
+                            <label for="sortby" class="custom-label post-label">Type of pet</label>
+                            <br>
+                            <select name="petType" class="create-post-input" id="sortby" aria-label="Type of pet">
+                                <option disabled selected>Type</option> 
+                                <option value="Dog">Dog</option>
+                                <option value="Cat">Cat</option>
+                            </select>
+                            <br>
+                            <label for="description" class="custom-label post-label">Description</label>
+                            <br>
+                            <textarea name="description" class="create-post-input" placeholder="Description" cols="1" rows="2" aria-label="Description Input"></textarea> 
+                            <br>
+                            
+                            <label for=" price" class="custom-label post-label">Price</label>
+                            <br>
+                            <span class="input-symbol-dollar"><input type="number" name="price" id="price" class="create-post-input" placeholder="Price" min="0" aria-label="Price"></span>
+                            <br>
+                            <label class="custom-label post-label">Your location:</label>
+                            <input type="text" id="userlocation" name="location" class="create-post-input">
+                            <br>
+                            <br>
+                            <button type="submit" class='custom-btn disapear-small'>Post</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+    </div>
+</body>
+
+</html>

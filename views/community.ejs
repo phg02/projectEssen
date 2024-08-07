@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+<!-- DONE -->
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="This page allow the user to interact with our community">
+    <title>PawPals</title>
+    <link rel="stylesheet" href="/stylesheet/community.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script src="https://kit.fontawesome.com/797e28e901.js" crossorigin="anonymous"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&family=Kreon:wght@300..700&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap" rel="stylesheet">
+    <link rel="icon" type="image/svg" href="/images/logo.svg">
+</head>
+
+<%if (user.theme === 'light'){%>
+    <body>
+    <%} else{%>
+    <body data-theme="dark">
+    <%}%>
+<!-- FIRST -->
+    <div class="main">
+        <nav class="navbar" aria-label="Main navigation">
+            <ul class="nav-list">
+                <li class="nav-item now">
+                    <a href="/community" class="nav-link" aria-label="Community">
+                        <i class="fa-solid fa-people-group"></i>
+                        <p class="nav-text">Community</p>
+                    </a>
+                </li>
+
+                <li class="nav-item">
+                    <a href="/adoption" class="nav-link" aria-label="Adoption">
+                        <i class="fa-solid fa-cart-shopping"></i>
+                        <p class="nav-text">Adoption</p>
+                    </a>
+                </li>
+
+                <li class="nav-item">
+                    <a href="/community/createpost" class="nav-link" aria-label="Create post">
+                        <i class="fa-solid fa-square-plus"></i>
+                        <p class="nav-text">Create post</p>
+                    </a>
+                </li>
+
+                <li class="nav-item">
+                    <a href="/user/postprofile" class="nav-link" aria-label="Profile">
+                        <i class="fa-solid fa-user"></i>
+                        <p class="nav-text">Profile</p>
+                    </a>
+                </li>
+
+                <li class="nav-item">
+                    <a href="/setting" class="nav-link" aria-label="Setting">
+                        <i class="fa-solid fa-gear"></i>
+                        <p class="nav-text">Setting</p>
+                    </a>
+                </li>
+            </ul>
+        </nav>
+
+        <div class="wrapper">
+            <form aria-label="Search and filter form" action="/community" method="GET" id="searchform">
+                <div class="search-bar">
+                    <div class="top">
+                        <div class="search">
+                            <input name="search" type="text" placeholder="Search..." aria-label="Search input" value="<%= searchOptions.search%>">
+                            <button type="submit" aria-label="Search button"><i class="fa-solid fa-magnifying-glass"></i></button>
+                        </div>
+                        <div class="sortby">
+                            <select name="sortby" id="sortby" aria-label="Sort by" onchange="autoSubmit()">
+                                <%if(searchOptions.sortby == '' || searchOptions.sortby== null){%>
+                                    <option disabled selected>Sort by</option>
+                                <%}else{%>
+                                    <option disabled>Sort by</option>
+                                <%}%>
+                                <%if(searchOptions.sortby == 'new'){%>
+                                    <option value="new" selected>Newest post</option>
+                                <%}else{%>
+                                    <option value="new">Newest post</option>
+                                <%}%>
+                                <%if(searchOptions.sortby == 'old'){%>
+                                    <option value="old" selected>Oldest post</option>
+                                <%}else{%>
+                                    <option value="old">Oldest post</option>
+                                <%}%>  
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="bottom">
+                        <p>Filter by date:</p>
+                        <div class="start-date">
+                            <input type="date" name="startDate" placeholder="Start date" aria-label="Start date input" value="<%= searchOptions.startDate%>" onchange="autoSubmit()">
+                        </div>
+                        <div class="end-date">
+                            <input type="date" name="endDate" placeholder="End date" aria-label="End date input" value="<%= searchOptions.endDate%>" onchange="autoSubmit()">
+                        </div>
+                    </div>
+                </div>
+            </form>
+<!-- SECOND -->
+            <%if (allPosts.length != 0) {%>
+                <div class="cards">
+
+                    <%allPosts.forEach(post =>{%> 
+                        <%if (post.author.activate == true){%>
+                            <div class="card">
+                                <div class="card-header">
+                                    <div class="header-name">
+                                        <div class="img-post">
+                                            <img src="<%= post.author.profilePic%>" alt="profile image">
+                                            <p><strong><%=post.author.username %></strong>   <%= post.dateCreated.getDate()%>/<%=1+ post.dateCreated.getMonth()%>/<%= post.dateCreated.getFullYear()%></p>
+                                        </div>
+                                            
+                                        <div class="dropdown">
+                                            <button aria-haspopup="true" aria-controls="report">...</button>
+                                            <div class="report hidden" data-modal-target="#<%= 'p'+post.id%>">Report post</div>
+                                        </div>
+                                    </div>
+                
+                                    <div class="title">
+                                        <div aria-labelledby="post-info"><%= post.title%></div>
+                                        <div class="post-title"><%= post.description%></div>
+                                    </div>
+                                    <button class="see-more-btn">See more</button>
+                                </div>
+                
+                                <%if(post.image !== null){%>
+                                    <div class="card-body">
+                                        <img src="<%= post.image%>" alt="post img">
+                                    </div>
+                                <%}%>
+
+                                <div class="card-footer">    
+                                    <div>
+                                        <%if(post.image !== null){%>
+                                            <a href="/community/imgpost/<%= post.id%>/community">
+                                            <div type="button" class="commentBtn" aria-label="Comment on post">
+                                                View full post
+                                            </div></a>
+                                        <%}else{%>
+                                            <a href="/community/post/<%= post.id%>/community">
+                                            <div type="button" class="commentBtn" aria-label="Comment on post">
+                                                View full post
+                                            </div></a>
+                                        <%}%>
+                                    </div>
+                                </div>
+                            </div>
+                        <%}%>
+                    <%})%>
+                    
+                    <!--id cái modal ni là report, cái data-modal-target của cái nút report kia là #report-->
+                    <% allPosts.forEach(post => {%>
+                        <div class="modal haha" id="<%= 'p'+post.id%>" role="dialog" aria-labelledby="report-title" aria-modal="true">
+                            <div class="modal-header2">
+                                <button data-close-button class="close-button" aria-label="Close">&times;</button>
+                            </div>
+                        
+                            <div class="modal-body2">
+                                <p>Are you sure you want to report this post?</p>
+                                <div>
+                                    <form action="/community/report/<%= post.id%>?_method=PUT" method="POST" >
+                                        <button class="reportBtn">Report</button>
+                                    </form>
+                                    <button class="cancelBtn">Cancel</button>
+                                </div>
+                            </div>
+                        </div>
+                    <%})%>
+                                
+                </div>
+                <div class="pag">
+                    <%if(page >= 1){%>
+                        <a href="/community?page=<%= Number(page)- 1%><%= searchLink%>">Previous</a>
+                    <%}%>
+                    <a href="/community?page=<%= Number(page)+ 1%><%= searchLink%>">Next page</a>
+                </div>
+                <%} else {%>
+                <div class="noContent">
+                    <p>No posts found.<a href="/community"> Go back</a></p>
+                </div> 
+            <%}%>   
+        </div>
+    </div>
+<!-- THIRD -->
+
+    <div id="overlay"></div>
+
+    <script src="/javascript/community.js"></script>
+</body>
+
+</html>

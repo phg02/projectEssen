@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<!-- DONE -->
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="This page allow you to look at a post selling pet">
+    <title>PawPals</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Kreon:wght@300..700&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&family=Kreon:wght@300..700&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="/stylesheet/adminPet.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script src="https://kit.fontawesome.com/797e28e901.js" crossorigin="anonymous"></script>
+    <link rel="icon" type="image/svg" href="/images/logo.svg">
+</head>
+<%if (user.theme === 'light'){%>
+    <body>
+    <%} else{%>
+    <body data-theme="dark">
+    <%}%>
+
+    <div class="main" aria-label="Main Content">
+
+        <div class="test">
+            <div class="escape">
+                <a href="javascript:window.history.back();">
+                    <i class="fa-solid fa-arrow-left"></i>
+                    <div>back</div>
+                </a>
+            </div>
+
+            <div class="card" aria-label="Pet Information Card">
+                <div class="dog">
+                    <img src="<%=post.image%>" alt="Pet Image">
+                </div>
+                <div class="info">
+                    <div class="name">
+                        <h1><%=post.title%></h1>
+                        <h2>$<%=post.price%></h2>
+                    </div>
+                    <div class="user">
+                        <img src="<%=post.author.profilePic%>" alt="Profile">
+                        <h4><%=post.author.username%></h4>
+                        <button data-modal-target="#contact" aria-label="Contact Seller Button">Contact me</button>
+                    </div>
+                    <div class="description">
+                        <h2>Description</h2>
+                        <p><%=post.description%></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <nav class="navbar" aria-label="Main Navigation">
+            <ul class="nav-list">
+                <li class="nav-item">
+                    <a href="/admin/users" class="nav-link" aria-label="Users List">
+                        <i class="fa-solid fa-people-group"></i>
+                        <p class="nav-text">Users List</p>
+                    </a>
+                </li>
+
+                <li class="nav-item">
+                    <a href="/admin/post" class="nav-link" aria-label="Manage Posts">
+                        <i class="fa-solid fa-file"></i>
+                        <p class="nav-text">Manage Posts</p>
+                    </a>
+                </li>
+
+                <li class="nav-item now">
+                    <a href="/admin/adoption" class="nav-link" aria-label="Manage Posts">
+                        <i class="fa-solid fa-cart-shopping"></i>
+                        <p class="nav-text">Manage Adoption</p>
+                    </a>
+                </li>
+
+                <li class="nav-item">
+                    <a href="/admin/setting" class="nav-link" aria-label="Setting">
+                        <i class="fa-solid fa-gear"></i>
+                        <p class="nav-text">Setting</p>
+                    </a>
+                </li>
+            </ul>
+        </nav>
+    </div>
+
+    <div class="modal" id="contact" aria-label="Contact Modal">
+        <div class="modal-header">
+            <button data-close-button class="close-button" aria-label="Close Modal Button">&times;</button>
+        </div>
+    
+        <div class="modal-body">
+            <div>Seller contact info:</div>
+            <div><%=post.author.email%></div>
+            <div><%=post.location%></div>
+        </div>
+    </div>
+
+    <div id="overlay"></div>
+
+    <script src="/javascript/adminPet.js"></script>
+</body>
+</html>

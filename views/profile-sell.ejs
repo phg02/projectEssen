@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<!-- DONE -->
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="This page allow the user to view their pet sales through profile">
+    <title>PawPals</title>
+    <link rel="stylesheet" href="/stylesheet/profile-sell.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script src="https://kit.fontawesome.com/797e28e901.js" crossorigin="anonymous"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&family=Kreon:wght@300..700&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap" rel="stylesheet">
+    <link rel="icon" type="image/svg" href="/images/logo.svg">
+</head>
+<%if (user.theme === 'light'){%>
+    <body>
+    <%} else{%>
+    <body data-theme="dark">
+    <%}%>
+
+    <div class="main">
+        <div class="wrapper">
+            <div class="profile">
+                <div class="profile-info">
+                    <img src="<%=user.profilePic%>" alt="Profile picture" class="profile-img">
+
+                    <div class="profile-detail">
+                        <div class="profile-name">
+                            <div id="profile-name" aria-labelledby="profile-name"><%=user.username%></div>
+                            <a href="/setting" aria-label="Settings">
+                                <i class="fa-solid fa-gear"></i>
+                            </a>
+                        </div>
+
+                        <div class="profile-follow">
+                            <div><%= allAdoption.length%> listings</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="profile-select">
+                    <a href="/user/postprofile" class="nav-link" role="button" aria-label="Posts">
+                        <i class="fa-solid fa-file"></i>
+                        <p class="nav-text">Posts</p>
+                    </a>
+
+                    <a href="/user/sellerprofile" class="nav-link curr" role="button" aria-label="Sell">
+                        <i class="fa-solid fa-bag-shopping"></i>
+                        <p class="nav-text">Sell</p>
+                    </a>
+                </div>
+                <!-- add condition for author later -->
+                <%if (allAdoption.length != 0){%>
+                    <div class="profile-sell">
+                        <%allAdoption.forEach(post =>{%>
+                        <div class="card">
+                            <img src="<%=post.image%>" alt="Pet for sale" class="postImage">
+
+                            <!--em thêm cái class post-title zô dòng 66 nhe-->
+                            <div class="description">
+                                <div>
+                                    <div class="post-title"><%=post.title%></div>
+
+                                    <div class="dropdown">
+                                        <button aria-label="a button">...</button>
+                                        <div class="report hidden" data-modal-target="#<%= 'a' + post.id%>">Delete post</div>
+                                    </div>
+                                </div>
+
+                                <div class="money">$<%=post.price%></div>
+                            </div>
+                            
+                            <div class="btn">
+                                <a href="/adoption/listing/<%=post._id%>" role="button" aria-label="See more"><div class="see-more">See more</div></a>
+                            </div>
+                        </div>
+                        <%})%>
+                            
+                    </div>
+                    
+                <%} else {%>
+                    <div class="noContent">
+                        <p>No listings found.</p>
+                    </div>
+                <%}%>
+            </div>
+        </div>
+
+        <nav class="navbar" role="navigation">
+            <ul class="nav-list" role="menu">
+                <li class="nav-item" role="none">
+                    <a href="/community" class="nav-link" role="menuitem" aria-label="Community">
+                        <i class="fa-solid fa-people-group"></i>
+                        <p class="nav-text">Community</p>
+                    </a>
+                </li>
+        
+                <li class="nav-item" role="none">
+                    <a href="/adoption" class="nav-link" role="menuitem" aria-label="Adoption">
+                        <i class="fa-solid fa-cart-shopping"></i>
+                        <p class="nav-text">Adoption</p>
+                    </a>
+                </li>
+        
+                <li class="nav-item" role="none">
+                    <a href="/community/createpost" class="nav-link" role="menuitem" aria-label="Create post">
+                        <i class="fa-solid fa-square-plus"></i>
+                        <p class="nav-text">Create post</p>
+                    </a>
+                </li>
+        
+                <li class="nav-item now" role="none">
+                    <a href="/user/postprofile" class="nav-link" role="menuitem" aria-label="Profile">
+                        <i class="fa-solid fa-user"></i>
+                        <p class="nav-text">Profile</p>
+                    </a>
+                </li>
+        
+                <li class="nav-item" role="none">
+                    <a href="/setting" class="nav-link" role="menuitem" aria-label="Setting">
+                        <i class="fa-solid fa-gear"></i>
+                        <p class="nav-text">Setting</p>
+                    </a>
+                </li>
+            </ul>
+        </nav>
+    </div>
+    
+    <%allAdoption.forEach(post =>{%>
+        <div class="modal box2" id="<%= 'a' + post.id%>" role="dialog" aria-labelledby="dialogTitle" aria-describedby="dialogDesc">
+            <div class="modal-header2">
+                <button data-close-button class="close-button" aria-label="Close dialog">&times;</button>
+            </div>
+        
+            <div class="modal-body2" id="dialogDesc">
+                <p id="dialogTitle">Are you sure you want to delete this post?</p>
+                <div>
+                    <form action="/adoption/listing/<%=post.id%>?_method=PUT" method="POST">
+                        <button class="reportBtn" aria-label="Confirm delete" type="submit">Delete</button>
+                    </form>  
+                    <button class="cancelBtn" aria-label="Cancel delete" type="button"  href='/user/sellerprofile'">Cancel</button>
+                </div>
+            </div>
+        </div>
+    <% })%>
+    <div id="overlay"></div>
+    <script src="/javascript/adoption.js"></script>
+    
+</body>
+</html>
