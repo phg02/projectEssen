@@ -93,6 +93,8 @@ h1 {
   font-size: 1.5rem;
   text-align: center;
   padding-top: 1.25rem;
+  align-self: center;
+  width: 15rem;
 }
 
 #muck p, #nghia p {
