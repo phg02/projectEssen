@@ -8,7 +8,7 @@ Please make sure this README file contains the information required in the assig
 
 ## 1. Website URL
 Access the final website here:
-- [Full URL of our website](https://group-project-cosc3060-2024a-a-team.onrender.com/)
+- [Full URL of our website](https://projectessen.onrender.com)
 
 ## 2. GitHub Repository
 Find the project's source code and documentation in our GitHub repository:
