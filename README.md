@@ -1,6 +1,6 @@
 [![Review Assignment Due Date](https://classroom.github.com/assets/deadline-readme-button-24ddc0f5d75046c5622901739e7c5dd533143b0c8e959d652212380cedb1ea36.svg)](https://classroom.github.com/a/ohvnreiu)
-# Fullstack-Node-Web-Project-COSC3060
-This is a template for a fullstack Node Web Project for COSC3060!
+# Petpals the social media pet
+This is a PetPawl the social media for pet oweners, this project is for Essential to IT course!
 
 Please make sure this README file contains the information required in the assignment specification!
 
@@ -8,7 +8,7 @@ Please make sure this README file contains the information required in the assig
 
 ## 1. Website URL
 Access the final website here:
-- [Full URL of our website](https://group-project-cosc3060-2024a-a-team.onrender.com/)
+- [Full URL of our website](https://projectessen.onrender.com)
 
 ## 2. GitHub Repository
 Find the project's source code and documentation in our GitHub repository:
